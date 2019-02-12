@@ -4,10 +4,15 @@ import {
   TextInput,
   View,
   Button,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  FlatList,
+  Text
 } from "react-native";
 
 import { width, height } from "../constants/Layouts";
+
+import films from "../datas/filmData";
+import FilmItem from "./FilmItem";
 
 class Search extends React.Component {
   render() {
@@ -21,6 +26,11 @@ class Search extends React.Component {
           />
           <Button title="Rechercher" onPress={() => {}} />
         </View>
+        <FlatList
+          data={films}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => <FilmItem film={item} />}
+        />
       </KeyboardAvoidingView>
     );
   }
@@ -32,7 +42,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#B0DDFF",
-    width: width
+    width: width,
+    marginBottom: 20
   },
   search: {
     borderWidth: 1,
@@ -40,8 +51,8 @@ const styles = StyleSheet.create({
     height: 40,
     paddingLeft: 15,
     borderColor: "#f1f1f1",
-    marginTop: 50,
-    borderRadius: 50
+    marginTop: 45,
+    borderRadius: 30
   }
 });
 

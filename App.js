@@ -8,7 +8,6 @@ class App extends React.Component {
     return (
       <View style={styles.container}>
         <Search />
-        <Text>This is the App component</Text>
       </View>
     );
   }
