@@ -8,14 +8,51 @@ import {
   FlatList,
   Text
 } from "react-native";
+import axios from "axios";
+import SearchBar from "react-native-elements";
 
 import { width, height } from "../constants/Layouts";
 
 import films from "../datas/filmData";
 import FilmItem from "./FilmItem";
+import key from "../constants/key";
 
 class Search extends React.Component {
+  //   constructor(props) {
+  //     super(props);
+  //     this.state = { films: [], searchedText: "" };
+  //   }
+  state = {
+    films: [],
+    searchedText: ""
+  };
+
+  updateSearch = searchedText => {
+    this.setState({ searchedText });
+  };
+
+  onPress = () => {
+    console.log(this.state.searchedText);
+
+    axios
+      .get(
+        "https://api.themoviedb.org/3/search/movie?api_key=" +
+          apiKey +
+          "&language=fr&query=" +
+          this.state.searchedText
+      )
+      .then(response => {
+        console.log(response.data.results);
+
+        this.setState({ films: response.data.results });
+      })
+      .catch(function(error) {
+        console.log("wtf", error);
+      });
+  };
+
   render() {
+    const { searchedText } = this.state;
     return (
       <KeyboardAvoidingView>
         <View style={styles.container}>
@@ -23,11 +60,18 @@ class Search extends React.Component {
             style={styles.search}
             placeholder="Titre du film"
             keyboardType="web-search"
+            onChangeText={this.updateSearch}
           />
-          <Button title="Rechercher" onPress={() => {}} />
+          <Button title="Rechercher" onPress={this.onPress} />
+          {/* <SearchBar
+            style={styles.search_bar}
+            placeholder="Type Here..."
+            onChangeText={this.updateSearch}
+            value={searchedText}
+          /> */}
         </View>
         <FlatList
-          data={films}
+          data={this.state.films}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => <FilmItem film={item} />}
         />

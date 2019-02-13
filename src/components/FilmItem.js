@@ -7,7 +7,14 @@ class FilmItem extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: "image" }} />
+        <Image
+          style={styles.image}
+          source={{
+            uri:
+              "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" +
+              film.poster_path
+          }}
+        />
         <View style={styles.content_container}>
           <View style={styles.header_container}>
             <Text style={styles.title_text}>{film.title}</Text>
