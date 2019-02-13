@@ -9,13 +9,12 @@ import {
   Text
 } from "react-native";
 import axios from "axios";
-import SearchBar from "react-native-elements";
+import { SearchBar } from "react-native-elements";
 
 import { width, height } from "../constants/Layouts";
 
-import films from "../datas/filmData";
 import FilmItem from "./FilmItem";
-import key from "../constants/key";
+import { apiKey } from "../constants/key";
 
 class Search extends React.Component {
   //   constructor(props) {
@@ -37,7 +36,7 @@ class Search extends React.Component {
     axios
       .get(
         "https://api.themoviedb.org/3/search/movie?api_key=" +
-          apiKey +
+          "a1ed9ff058a227b3f78a17db946daaaf" +
           "&language=fr&query=" +
           this.state.searchedText
       )
@@ -56,19 +55,29 @@ class Search extends React.Component {
     return (
       <KeyboardAvoidingView>
         <View style={styles.container}>
-          <TextInput
+          {/* <TextInput
             style={styles.search}
             placeholder="Titre du film"
             keyboardType="web-search"
             onChangeText={this.updateSearch}
-          />
-          <Button title="Rechercher" onPress={this.onPress} />
-          {/* <SearchBar
-            style={styles.search_bar}
-            placeholder="Type Here..."
+            onSubmitEditing={() => this.onPress()}
+          /> */}
+          {/* <Button title="Rechercher" onPress={this.onPress} /> */}
+          <SearchBar
+            inputContainerStyle={{
+              backgroundColor: "white",
+              borderRadius: 30,
+              height: 20,
+              width: 300,
+              height: 20
+            }}
+            containerStyle={styles.search}
+            placeholder="Rechercher"
             onChangeText={this.updateSearch}
             value={searchedText}
-          /> */}
+            onSubmitEditing={() => this.onPress()}
+            lightTheme={true}
+          />
         </View>
         <FlatList
           data={this.state.films}
@@ -90,13 +99,17 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   search: {
-    borderWidth: 1,
-    width: 350,
-    height: 40,
-    paddingLeft: 15,
-    borderColor: "#f1f1f1",
+    // borderWidth: 1,
+    width: 300,
+    height: 20,
+    // paddingLeft: 15,
+    borderColor: "white",
+    backgroundColor: "white",
     marginTop: 45,
-    borderRadius: 30
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    marginBottom: 30,
+    padding: 0
   }
 });
 
