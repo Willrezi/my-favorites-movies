@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   content_container: {
     flex: 1,
     // margin: 5,
-    padding: 5
+    paddingLeft: 8
   },
   header_container: {
     flexDirection: "row",
