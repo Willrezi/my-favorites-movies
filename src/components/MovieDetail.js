@@ -4,16 +4,26 @@ import {
   Text,
   View,
   ImageBackground,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from "react-native";
 import axios from "axios";
+import moment from "moment";
+import "moment/locale/fr";
+
 import { apiKey } from "../constants/key";
 
 class MovieDetail extends React.Component {
+  //   static navigationOptions = {
+  //     title: "Film",
+  //     headerBackTitle: "null"
+  //   };
+
   constructor(props) {
     super(props);
     this.state = {
-      film: {}
+      film: undefined,
+      isLoading: true
     };
   }
 
@@ -28,16 +38,26 @@ class MovieDetail extends React.Component {
           "&language=fr"
       )
       .then(response => {
-        this.setState({ film: response.data });
+        this.setState({ film: response.data, isLoading: false });
         console.log(response.data);
       });
   }
 
-  render() {
+  isLoading = () => {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.loading_container}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
+  };
+
+  displayMovie = () => {
     const { film } = this.state;
-    return (
-      <ScrollView>
-        <View style={styles.container}>
+    if (film !== undefined) {
+      return (
+        <ScrollView style={styles.scrollview_container}>
           <ImageBackground
             style={styles.image}
             source={{
@@ -46,8 +66,32 @@ class MovieDetail extends React.Component {
           />
           <Text style={styles.title}>{film.title}</Text>
           <Text style={styles.description}>{film.overview}</Text>
-        </View>
-      </ScrollView>
+          <Text style={styles.text}>
+            Sorti le {moment(new Date(film.release_date)).format("LL")}
+          </Text>
+          <Text style={styles.text}>
+            Genre(s) :{" "}
+            {film.genres
+              .map(genre => {
+                return genre.name;
+              })
+              .join(" / ")}
+          </Text>
+          <Text style={styles.text}>
+            Note moyenne : {film.vote_average} / 10
+          </Text>
+        </ScrollView>
+      );
+    }
+  };
+
+  render() {
+    // const { film } = this.state;
+    return (
+      <View style={styles.container}>
+        {this.isLoading()}
+        {this.displayMovie()}
+      </View>
     );
   }
 }
@@ -58,6 +102,9 @@ const styles = StyleSheet.create({
     // margin: 5
     // alignItems: "center",
     // justifyContent: "center"
+  },
+  scrollview_container: {
+    flex: 1
   },
   image: {
     height: 200,
@@ -82,6 +129,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10,
     marginBottom: 15
+  },
+  text: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 5
   }
 });
 

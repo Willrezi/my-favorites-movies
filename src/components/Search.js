@@ -31,12 +31,6 @@ class Search extends React.Component {
     };
   }
 
-  //   state = {
-  //     films: [],
-  //     searchedText: "",
-  //     isLoading: false
-  //   };
-
   updateSearch = searchedText => {
     this.setState({ searchedText });
   };

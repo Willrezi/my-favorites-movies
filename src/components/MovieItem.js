@@ -1,6 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
+import moment from "moment";
+import "moment/locale/fr";
+
 class MovieItem extends React.Component {
   render() {
     const film = this.props.film;
@@ -19,10 +22,12 @@ class MovieItem extends React.Component {
             <Text style={styles.vote}>{film.vote_average}</Text>
           </View>
           <View style={styles.date_container}>
-            <Text style={styles.date}>Sorti le {film.release_date}</Text>
+            <Text style={styles.date}>
+              Sorti le {moment(new Date(film.release_date)).format("ll")}
+            </Text>
           </View>
           <View style={styles.description_container}>
-            <Text style={styles.description_text} numberOfLines={5}>
+            <Text style={styles.description_text} numberOfLines={6}>
               {film.overview}
             </Text>
           </View>

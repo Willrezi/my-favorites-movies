@@ -14,6 +14,7 @@ const searchStackNavigator = createStackNavigator({
   MovieDetail: {
     screen: MovieDetail,
     navigationOptions: {
+      headerTintColor: "black",
       headerStyle: {
         backgroundColor: "#B0DDFF"
       }
