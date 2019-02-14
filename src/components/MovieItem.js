@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
-class FilmItem extends React.Component {
+class MovieItem extends React.Component {
   render() {
     const film = this.props.film;
 
@@ -10,9 +10,7 @@ class FilmItem extends React.Component {
         <Image
           style={styles.image}
           source={{
-            uri:
-              "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" +
-              film.poster_path
+            uri: "https://image.tmdb.org/t/p/w300/" + film.poster_path
           }}
         />
         <View style={styles.content_container}>
@@ -87,4 +85,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FilmItem;
+export default MovieItem;

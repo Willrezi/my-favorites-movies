@@ -7,14 +7,15 @@ import {
   KeyboardAvoidingView,
   FlatList,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import axios from "axios";
 import { SearchBar } from "react-native-elements";
 
 import { width, height } from "../constants/Layouts";
 
-import FilmItem from "./FilmItem";
+import MovieItem from "./MovieItem";
 import { apiKey } from "../constants/key";
 
 class Search extends React.Component {
@@ -40,9 +41,7 @@ class Search extends React.Component {
     this.setState({ searchedText });
   };
 
-  onPress = () => {
-    // const apiKey = process.env.REACT_APP_API_KEY;
-
+  loadMovies = () => {
     if (this.state.searchedText.length > 0) {
       this.setState({ isLoading: true });
       axios
@@ -78,7 +77,7 @@ class Search extends React.Component {
         films: []
       },
       () => {
-        this.onPress();
+        this.loadMovies();
       }
     );
   };
@@ -116,11 +115,19 @@ class Search extends React.Component {
         <FlatList
           data={this.state.films}
           keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => <FilmItem film={item} />}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("MovieDetail", item);
+              }}
+            >
+              <MovieItem film={item} />
+            </TouchableOpacity>
+          )}
           onEndReachedThreshold={0.5}
           onEndReached={() => {
             if (this.page < this.totalPages) {
-              this.onPress();
+              this.loadMovies();
             }
           }}
         />

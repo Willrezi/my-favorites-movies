@@ -1,13 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import Search from "./src/components/Search";
+// import Search from "./src/components/Search";
+import Navigation from "./src/navigation/Navigation";
 
 class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Search />
+        <Navigation />
       </View>
     );
   }
