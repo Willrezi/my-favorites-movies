@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/fr";
-
+import { connect } from "react-redux";
 import { apiKey } from "../constants/key";
 
 class MovieDetail extends React.Component {

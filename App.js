@@ -1,14 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
-// import Search from "./src/components/Search";
 import Navigation from "./src/navigation/Navigation";
+import { Provider } from "react-redux";
+import Store from "./src/store/configureStore";
 
 class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Navigation />
+        <Provider store={Store}>
+          <Navigation />
+        </Provider>
       </View>
     );
   }
