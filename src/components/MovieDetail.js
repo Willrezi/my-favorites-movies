@@ -13,6 +13,8 @@ import "moment/locale/fr";
 import { connect } from "react-redux";
 import { apiKey } from "../constants/key";
 
+import { toggleFavorite } from "../store/actions/index";
+
 class MovieDetail extends React.Component {
   //   static navigationOptions = {
   //     title: "Film",
