@@ -5,7 +5,9 @@ import {
   View,
   ImageBackground,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity,
+  Image
 } from "react-native";
 import axios from "axios";
 import moment from "moment";
@@ -55,6 +57,18 @@ class MovieDetail extends React.Component {
     }
   };
 
+  favoriteImage = () => {
+    let imageSource = require("../assets/ic_favorite_border.png");
+    if (
+      this.props.favoriteMovie.findIndex(
+        item => item.id === this.state.film.id
+      ) !== -1
+    ) {
+      imageSource = require("../assets/ic_favorite.png");
+    }
+    return <Image style={styles.favorite_image} source={imageSource} />;
+  };
+
   displayMovie = () => {
     const { film } = this.state;
     if (film !== undefined) {
@@ -67,6 +81,12 @@ class MovieDetail extends React.Component {
             }}
           />
           <Text style={styles.title}>{film.title}</Text>
+          <TouchableOpacity
+            style={styles.favorite_container}
+            onPress={() => this.toggleFavorite()}
+          >
+            {this.favoriteImage()}
+          </TouchableOpacity>
           <Text style={styles.description}>{film.overview}</Text>
           <Text style={styles.text}>
             Sorti le {moment(new Date(film.release_date)).format("LL")}
@@ -88,7 +108,8 @@ class MovieDetail extends React.Component {
   };
 
   render() {
-    // const { film } = this.state;
+    console.log("this.props", this.props);
+
     return (
       <View style={styles.container}>
         {this.isLoading()}
@@ -107,6 +128,22 @@ const styles = StyleSheet.create({
   },
   scrollview_container: {
     flex: 1
+  },
+  loading_container: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  favorite_image: {
+    width: 30,
+    height: 30
+  },
+  favorite_container: {
+    alignItems: "center"
   },
   image: {
     height: 200,
@@ -139,4 +176,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MovieDetail;
+const mapStateToProps = state => {
+  return { favoriteMovie: state.favoriteMovie };
+};
+
+export default connect(mapStateToProps)(MovieDetail);
