@@ -18,10 +18,11 @@ import { apiKey } from "../constants/key";
 import { toggleFavorite } from "../store/actions/index";
 
 class MovieDetail extends React.Component {
-  //   static navigationOptions = {
-  //     title: "Film",
-  //     headerBackTitle: "null"
-  //   };
+  static navigationOptions = {
+    // title: "Film",
+    headerLeftBackTitle: null,
+    headerTintColor: "#c2c2c2"
+  };
 
   constructor(props) {
     super(props);

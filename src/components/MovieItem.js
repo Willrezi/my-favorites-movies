@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   fav_image: {
     height: 20,
     width: 20,
-    marginTop: 5,
+    marginTop: 2,
     marginRight: 5
   },
   title_text: {
