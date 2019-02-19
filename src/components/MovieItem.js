@@ -5,9 +5,19 @@ import moment from "moment";
 import "moment/locale/fr";
 
 class MovieItem extends React.Component {
+  favoriteImage = () => {
+    if (this.props.isFavorite) {
+      return (
+        <Image
+          style={styles.fav_image}
+          source={require("../assets/ic_favorite.png")}
+        />
+      );
+    }
+  };
+
   render() {
     const film = this.props.film;
-
     return (
       <View style={styles.container}>
         <Image
@@ -18,6 +28,7 @@ class MovieItem extends React.Component {
         />
         <View style={styles.content_container}>
           <View style={styles.header_container}>
+            {this.favoriteImage()}
             <Text style={styles.title_text}>{film.title}</Text>
             <Text style={styles.vote}>{film.vote_average}</Text>
           </View>
@@ -60,6 +71,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // flex: 3,
     marginBottom: 5
+  },
+  fav_image: {
+    height: 20,
+    width: 20,
+    marginTop: 5,
+    marginRight: 5
   },
   title_text: {
     fontWeight: "bold",

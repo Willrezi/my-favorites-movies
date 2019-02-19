@@ -47,6 +47,11 @@ class MovieDetail extends React.Component {
       });
   }
 
+  componentDidUpdate() {
+    console.log("componentDidUpdate : ");
+    console.log(this.props.favoritesMovie);
+  }
+
   isLoading = () => {
     if (this.state.isLoading) {
       return (
@@ -57,10 +62,16 @@ class MovieDetail extends React.Component {
     }
   };
 
+  myToggleFavorite = () => {
+    // this.props.dispactch(toggleFavorite);
+    const action = { type: "TOGGLE_FAVORITE_MOVIE", value: this.state.film };
+    this.props.dispatch(action);
+  };
+
   favoriteImage = () => {
     let imageSource = require("../assets/ic_favorite_border.png");
     if (
-      this.props.favoriteMovie.findIndex(
+      this.props.favoritesMovie.findIndex(
         item => item.id === this.state.film.id
       ) !== -1
     ) {
@@ -83,7 +94,7 @@ class MovieDetail extends React.Component {
           <Text style={styles.title}>{film.title}</Text>
           <TouchableOpacity
             style={styles.favorite_container}
-            onPress={() => this.toggleFavorite()}
+            onPress={() => this.myToggleFavorite()}
           >
             {this.favoriteImage()}
           </TouchableOpacity>
@@ -177,7 +188,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  return { favoriteMovie: state.favoriteMovie };
+  return { favoritesMovie: state.favoritesMovie };
 };
 
 export default connect(mapStateToProps)(MovieDetail);

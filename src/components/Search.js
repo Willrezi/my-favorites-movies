@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import { SearchBar } from "react-native-elements";
+import { connect } from "react-redux";
 
 import { width, height } from "../constants/Layouts";
 
@@ -85,8 +86,9 @@ class Search extends React.Component {
   };
 
   render() {
-    console.log(this.state.isLoading);
     const { searchedText } = this.state;
+    console.log(this.props);
+
     return (
       <KeyboardAvoidingView>
         <View style={styles.container}>
@@ -108,14 +110,25 @@ class Search extends React.Component {
         </View>
         <FlatList
           data={this.state.films}
+          extraData={this.props.favoritesMovie}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("MovieDetail", item);
+                console.log("rrrr", { item });
               }}
             >
-              <MovieItem film={item} />
+              <MovieItem
+                film={item}
+                isFavorite={
+                  this.props.favoritesMovie.findIndex(
+                    film => film.id === item.id
+                  ) !== -1
+                    ? true
+                    : false
+                }
+              />
             </TouchableOpacity>
           )}
           onEndReachedThreshold={0.5}
@@ -164,4 +177,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Search;
+const mapStateToProps = state => {
+  return { favoritesMovie: state.favoritesMovie };
+};
+
+export default connect(mapStateToProps)(Search);
