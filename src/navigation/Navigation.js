@@ -31,7 +31,24 @@ const SearchStackNavigator = createStackNavigator({
   }
 });
 
-const MovieTavNavigator = createBottomTabNavigator(
+const FavoritesStack = createStackNavigator({
+  Favorites: {
+    screen: Favorites,
+    navigationOptions: {
+      title: "Mes favoris",
+      //   headerBackTitle: null,
+      headerTintColor: "grey",
+      headerStyle: {
+        backgroundColor: "#B0DDFF"
+      }
+    }
+  },
+  MovieDetail: {
+    screen: MovieDetail
+  }
+});
+
+const MovieTabNavigator = createBottomTabNavigator(
   {
     Search: {
       screen: SearchStackNavigator,
@@ -42,7 +59,7 @@ const MovieTavNavigator = createBottomTabNavigator(
       }
     },
     Favorites: {
-      screen: Favorites,
+      screen: FavoritesStack,
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <TabBarIcon focused={focused} size={25} name="heart" />
@@ -58,4 +75,4 @@ const MovieTavNavigator = createBottomTabNavigator(
   }
 );
 
-export default createAppContainer(MovieTavNavigator);
+export default createAppContainer(MovieTabNavigator);

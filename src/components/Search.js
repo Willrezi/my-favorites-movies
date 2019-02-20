@@ -18,6 +18,7 @@ import { width, height } from "../constants/Layouts";
 
 import MovieItem from "./MovieItem";
 import { apiKey } from "../constants/key";
+import MovieList from "./MovieList";
 
 class Search extends React.Component {
   constructor(props) {
@@ -87,7 +88,7 @@ class Search extends React.Component {
 
   render() {
     const { searchedText } = this.state;
-    console.log(this.props);
+    console.log("this.props", this.props);
 
     return (
       <KeyboardAvoidingView>
@@ -108,7 +109,7 @@ class Search extends React.Component {
             lightTheme={true}
           />
         </View>
-        <FlatList
+        {/* <FlatList
           data={this.state.films}
           extraData={this.props.favoritesMovie}
           keyExtractor={item => item.id.toString()}
@@ -116,7 +117,6 @@ class Search extends React.Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("MovieDetail", item);
-                console.log("rrrr", { item });
               }}
             >
               <MovieItem
@@ -137,6 +137,14 @@ class Search extends React.Component {
               this.loadMovies();
             }
           }}
+        /> */}
+        <MovieList
+          films={this.state.films}
+          navigation={this.props.navigation}
+          loadMovies={this.loadMovies}
+          page={this.page}
+          totalPages={this.totalPages}
+          favoriteList={false}
         />
         {this.isLoading()}
       </KeyboardAvoidingView>
@@ -177,8 +185,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
-  return { favoritesMovie: state.favoritesMovie };
-};
+// const mapStateToProps = state => {
+//   return { favoritesMovie: state.favoritesMovie };
+// };
 
-export default connect(mapStateToProps)(Search);
+// export default connect(mapStateToProps)(Search);
+export default Search;
