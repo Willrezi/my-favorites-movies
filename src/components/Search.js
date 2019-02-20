@@ -37,6 +37,25 @@ class Search extends React.Component {
     this.setState({ searchedText });
   };
 
+  //   componentDidMount() {
+  //     axios
+  //       .get(
+  //         "https://api.themoviedb.org/3/movie/top_rated?api_key=" +
+  //           apiKey +
+  //           "&language=fr-FR"
+  //       )
+  //       .then(response => {
+  //         console.log("cdm", response.data.results);
+
+  //         this.setState({
+  //           films: response.data.results
+  //         });
+  //       })
+  //       .catch(function(error) {
+  //         console.log("wtf", error);
+  //       });
+  //   }
+
   loadMovies = () => {
     if (this.state.searchedText.length > 0) {
       this.setState({ isLoading: true });
@@ -88,8 +107,6 @@ class Search extends React.Component {
 
   render() {
     const { searchedText } = this.state;
-    console.log("this.props", this.props);
-
     return (
       <KeyboardAvoidingView>
         <View style={styles.container}>
@@ -109,35 +126,6 @@ class Search extends React.Component {
             lightTheme={true}
           />
         </View>
-        {/* <FlatList
-          data={this.state.films}
-          extraData={this.props.favoritesMovie}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate("MovieDetail", item);
-              }}
-            >
-              <MovieItem
-                film={item}
-                isFavorite={
-                  this.props.favoritesMovie.findIndex(
-                    film => film.id === item.id
-                  ) !== -1
-                    ? true
-                    : false
-                }
-              />
-            </TouchableOpacity>
-          )}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => {
-            if (this.page < this.totalPages) {
-              this.loadMovies();
-            }
-          }}
-        /> */}
         <MovieList
           films={this.state.films}
           navigation={this.props.navigation}
@@ -168,10 +156,10 @@ const styles = StyleSheet.create({
     // paddingLeft: 15,
     borderColor: "white",
     backgroundColor: "white",
-    marginTop: 45,
+    marginTop: 41,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginBottom: 30,
+    marginBottom: 25,
     padding: 0
   },
   loading_container: {

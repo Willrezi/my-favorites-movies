@@ -22,7 +22,7 @@ const SearchStackNavigator = createStackNavigator({
   MovieDetail: {
     screen: MovieDetail,
     navigationOptions: {
-      headerBackTitle: null,
+      headerLeftBackTitle: null,
       headerTintColor: "grey",
       headerStyle: {
         backgroundColor: "#B0DDFF"
