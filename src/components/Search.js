@@ -37,24 +37,24 @@ class Search extends React.Component {
     this.setState({ searchedText });
   };
 
-  //   componentDidMount() {
-  //     axios
-  //       .get(
-  //         "https://api.themoviedb.org/3/movie/top_rated?api_key=" +
-  //           apiKey +
-  //           "&language=fr-FR"
-  //       )
-  //       .then(response => {
-  //         console.log("cdm", response.data.results);
+  componentDidMount() {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/movie/popular?api_key=" +
+          apiKey +
+          "&language=fr-FR"
+      )
+      .then(response => {
+        console.log("cdm", response.data.results);
 
-  //         this.setState({
-  //           films: response.data.results
-  //         });
-  //       })
-  //       .catch(function(error) {
-  //         console.log("wtf", error);
-  //       });
-  //   }
+        this.setState({
+          films: response.data.results
+        });
+      })
+      .catch(function(error) {
+        console.log("wtf", error);
+      });
+  }
 
   loadMovies = () => {
     if (this.state.searchedText.length > 0) {
@@ -124,6 +124,7 @@ class Search extends React.Component {
             value={searchedText}
             onSubmitEditing={() => this.searchFilms()}
             lightTheme={true}
+            // onClear={this.componentDidMount()}
           />
         </View>
         <MovieList
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
   },
   search: {
     // borderWidth: 1,
-    width: 300,
+    // width: 300,
     height: 20,
     // paddingLeft: 15,
     borderColor: "white",
