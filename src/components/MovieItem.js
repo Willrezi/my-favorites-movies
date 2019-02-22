@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 import moment from "moment";
 import "moment/locale/fr";
@@ -8,9 +9,16 @@ class MovieItem extends React.Component {
   favoriteImage = () => {
     if (this.props.isFavorite) {
       return (
-        <Image
-          style={styles.fav_image}
-          source={require("../assets/ic_favorite.png")}
+        // <Image
+        //   style={styles.fav_image}
+        //   source={require("../assets/ic_favorite.png")}
+        // />
+        <Icon
+          name="heart"
+          size={20}
+          color="#B0DDFF"
+          style={{ marginRight: 5 }}
+          solid
         />
       );
     }
