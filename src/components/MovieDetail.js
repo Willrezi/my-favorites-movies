@@ -14,6 +14,7 @@ import moment from "moment";
 import "moment/locale/fr";
 import { connect } from "react-redux";
 import { apiKey } from "../constants/key";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { toggleFavorite } from "../store/actions/index";
 
@@ -64,21 +65,24 @@ class MovieDetail extends React.Component {
   };
 
   myToggleFavorite = () => {
-    // this.props.toggleFavorite(value);
     const action = { type: "TOGGLE_FAVORITE_MOVIE", value: this.state.film };
     this.props.dispatch(action);
   };
 
   favoriteImage = () => {
-    let imageSource = require("../assets/ic_favorite_border.png");
+    // let imageSource = require("../assets/ic_favorite_border.png");
+    const icon1 = <Icon name="heart" size={30} color="#B0DDFF" solid />;
+    const icon2 = <Icon name="heart" size={30} color="#B0DDFF" regular />;
     if (
       this.props.favoritesMovie.findIndex(
         item => item.id === this.state.film.id
       ) !== -1
     ) {
-      imageSource = require("../assets/ic_favorite.png");
+      return icon1;
+      //   imageSource = require("../assets/ic_favorite.png");
     }
-    return <Image style={styles.favorite_image} source={imageSource} />;
+    return icon2;
+    // <Image style={styles.favorite_image} source={imageSource} />;
   };
 
   displayMovie = () => {

@@ -5,10 +5,9 @@ import MovieList from "./MovieList";
 
 class Favorites extends React.Component {
   renderFavorite() {
-    console.log("ici", this.props.favoritesMovie);
+    console.log("...", this.props.favoritesMovie);
 
     if (this.props.favoritesMovie.length > 0) {
-      console.log("là");
       return (
         <View style={styles.container}>
           <MovieList
@@ -21,7 +20,7 @@ class Favorites extends React.Component {
     } else {
       return (
         <Text numberOfLines={2} style={styles.empty_fav}>
-          Vous n'avez pas encore sélectionnés vos films favoris
+          Vous n'avez pas encore ajoutés de films à vos favoris
         </Text>
       );
     }
