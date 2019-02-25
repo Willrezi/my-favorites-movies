@@ -5,8 +5,6 @@ import MovieList from "./MovieList";
 
 class Favorites extends React.Component {
   renderFavorite() {
-    console.log("...", this.props.favoritesMovie);
-
     if (this.props.favoritesMovie.length > 0) {
       return (
         <View style={styles.container}>

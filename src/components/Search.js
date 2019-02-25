@@ -37,25 +37,6 @@ class Search extends React.Component {
     this.setState({ searchedText });
   };
 
-  componentDidMount() {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=" +
-          apiKey +
-          "&language=fr-FR"
-      )
-      .then(response => {
-        console.log("cdm", response.data.results);
-
-        this.setState({
-          films: response.data.results
-        });
-      })
-      .catch(function(error) {
-        console.log("wtf", error);
-      });
-  }
-
   loadMovies = () => {
     if (this.state.searchedText.length > 0) {
       this.setState({ isLoading: true });
