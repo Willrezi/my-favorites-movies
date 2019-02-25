@@ -6,6 +6,7 @@ import {
   createBottomTabNavigator
 } from "react-navigation";
 
+import TopRated from "../components/TopRated";
 import Search from "../components/Search";
 import MovieDetail from "../components/MovieDetail";
 import Favorites from "../components/Favorites";
@@ -23,6 +24,20 @@ const SearchStackNavigator = createStackNavigator({
     screen: MovieDetail,
     navigationOptions: {
       headerLeftBackTitle: null,
+      headerTintColor: "grey",
+      headerStyle: {
+        backgroundColor: "#B0DDFF"
+      }
+    }
+  }
+});
+
+const TopRatedStack = createStackNavigator({
+  TopRated: {
+    screen: TopRated,
+    navigationOptions: {
+      title: "Films les mieux notés",
+      //   headerBackTitle: null,
       headerTintColor: "grey",
       headerStyle: {
         backgroundColor: "#B0DDFF"
@@ -50,6 +65,14 @@ const FavoritesStack = createStackNavigator({
 
 const MovieTabNavigator = createBottomTabNavigator(
   {
+    TopRated: {
+      screen: TopRatedStack,
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon focused={focused} size={25} name="thumbs-up" />
+        )
+      }
+    },
     Search: {
       screen: SearchStackNavigator,
       navigationOptions: {
